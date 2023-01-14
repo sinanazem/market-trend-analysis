@@ -9,6 +9,8 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
 
+
+
 class VanguardInsights:
 
     def __init__(self, all_insight_link):
@@ -61,12 +63,12 @@ class VanguardInsights:
                 economy_market_dict = {
                     'company': 'Vanguard',
                     'topic': 'Insight',
-                    'article_title': tg,
-                    'abstract': tc,
-                    'date': d,
-                    'perspective': p,
                     'tag': ','.join(t),
+                    'section': '',
+                    'title': tg,
+                    'date': d,
                     'link': l,
+                    'abstract': tc,
                     'content': self.extract_content_with_id(l),
                 }
                 list_of_dict.append(economy_market_dict)
@@ -87,7 +89,13 @@ class VanguardInsights:
 
 
 if __name__ == "__main__":
+    from utils import DataBaseClass
+    # Vanguard
     vanguard_insight_obj = VanguardInsights('https://advisors.vanguard.com/insights/all')
     vanguard_insight_list = vanguard_insight_obj.get_article_insight()
-    df = pd.DataFrame(vanguard_insight_list)
-    print(df.head())
+    vanguard_df = pd.DataFrame(vanguard_insight_list)
+
+    # Store data in db
+
+    obj_data_base_class = DataBaseClass('guest', 'Aa12345', 'localhost', 5432, 'insights_db')
+    obj_data_base_class.store_data(vanguard_df, sql_table_name='insights_data')
