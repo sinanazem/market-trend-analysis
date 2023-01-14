@@ -1,14 +1,21 @@
-import io
+import io # standard library for input and output
 
-import psycopg2
+import psycopg2  # this library needs to connect to db with python
 from loguru import logger
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine # it is connects to db with python
 
 
 class DataBaseClass:
 
+    """this db get some inputs such as username, password, host,... 
+    and through this we can connect to database, read, insert, create, edit and ect
+
+
+    """
+
     def __init__(self, username, password, host, port, db_name):
 
+        # for connect to db needs bellow informations
         self.username = username
         self.password = password
         self.host = host
@@ -16,7 +23,7 @@ class DataBaseClass:
         self.db_name = db_name
 
     def db_query(self, command, read_query=None):
-        """ create tables in the PostgreSQL database"""
+        """ run query in PostgreSQL data """
 
         try:
 
@@ -39,7 +46,7 @@ class DataBaseClass:
             print(error)
 
     def create_database(self, command):
-        """ create tables in the PostgreSQL database"""
+        """ create db """
         self.db_query(command=command)
         logger.info(f'database is created.')
 
@@ -66,19 +73,24 @@ class DataBaseClass:
 
     def store_data(self, df, sql_table_name):
 
+        """ connect to db with sqlalchemy , it gets a pandas dataframe and put it in db"""
+
         engine = create_engine(
             f'postgresql+psycopg2://{self.username}:{self.password}@{self.host}:{self.port}/{self.db_name}')
 
-        df.head(0).to_sql(sql_table_name, engine, if_exists='replace',
+        df.to_sql(sql_table_name, engine, if_exists='append',
                           index=False)  # drops old table and creates new empty table
 
-        conn = engine.raw_connection()
-        logger.info(f'You are connected to the database!')
-        cur = conn.cursor()
-        output = io.StringIO()
-        df.to_csv(output, sep='\t', header=False, index=False)
-        output.seek(0)
-        contents = output.getvalue()
-        cur.copy_from(output, sql_table_name, null="")  # null values become ''
-        conn.commit()
-        logger.info(f'The data was successfully stored in the database.')
+        # df.head(0).to_sql(sql_table_name, engine, if_exists='replace',
+        #                   index=False)  # drops old table and creates new empty table
+
+        # conn = engine.raw_connection()
+        # logger.info(f'You are connected to the database!')
+        # cur = conn.cursor()
+        # output = io.StringIO()
+        # df.to_csv(output, sep='\t', header=False, index=False)
+        # output.seek(0)
+        # contents = output.getvalue()
+        # cur.copy_from(output, sql_table_name, null="")  # null values become ''
+        # conn.commit()
+        # logger.info(f'The data was successfully stored in the database.')
