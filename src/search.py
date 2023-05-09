@@ -4,7 +4,7 @@ import re
 import time
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from helper_functions import read_columns, read_data
+from src.helper_functions import read_columns, read_data
 
 
     #export

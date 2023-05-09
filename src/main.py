@@ -1,7 +1,7 @@
 import pandas as pd
 from crawlers.vanguard import VanguardInsights
 from crawlers.goldmansachs import GoldmanSachsInsights
-from utils import DataBaseClass
+from src.utils import DataBaseClass
 
 
 

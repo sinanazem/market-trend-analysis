@@ -1,11 +1,11 @@
 import matplotlib.pyplot as plt
 import streamlit as st
 from wordcloud import WordCloud
-from wordcloud_article import create_wordcloud, WORDCLOUD_IMAGES_PATH
+from src.wordcloud_article import create_wordcloud, WORDCLOUD_IMAGES_PATH
 from PIL import Image 
 
-from search import most_similar_article
-from text_preprocessing import preprocessing
+from src.search import most_similar_article
+from src.text_preprocessing import preprocessing
 
 
 st.header('Insight Recommendation')  # header for webapp
