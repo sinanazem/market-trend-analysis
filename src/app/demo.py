@@ -81,12 +81,12 @@ st.markdown(""" With the data stored in a database, we were able to apply a rang
             We also experimented with different techniques and parameter settings
             to optimize the performance of the NLP models.""")
 
-st.markdown("### App Development")
-st.markdown(""" The final stage of the project was to build the NLP app itself.
-            We chose to use the Streamlit framework, which allowed us to quickly
-            develop a user-friendly and interactive app that could be accessed through a web browser.
-            The app included features such as personalized recommendations based on
-            user preferences, sentiment analysis of individual articles, and topic search.
-            We also included visualizations to help users better understand the data,
-            such as word clouds and bar charts.""")
+# st.markdown("### App Development")
+# st.markdown(""" The final stage of the project was to build the NLP app itself.
+#             We chose to use the Streamlit framework, which allowed us to quickly
+#             develop a user-friendly and interactive app that could be accessed through a web browser.
+#             The app included features such as personalized recommendations based on
+#             user preferences, sentiment analysis of individual articles, and topic search.
+#             We also included visualizations to help users better understand the data,
+#             such as word clouds and bar charts.""")
 
