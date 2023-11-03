@@ -7,21 +7,15 @@ from sklearn.metrics.pairwise import cosine_similarity
 from src.helper_functions import read_columns, read_data
 
 
-    #export
+   
 def preprocess(title, body=None):
-    """ Preprocess the input, i.e. lowercase, remove html tags, special character and digits."""
     text = ''
     if body is None:
         text = title
     else:
         text = title + body
-    # to lower case
     text = text.lower()
-
-    # remove tags
     text = re.sub("</?.*?>"," <> ", text)
-
-    # remove special characters and digits
     text = re.sub("(\\d|\\W)+"," ", text).strip()
     return text
 
