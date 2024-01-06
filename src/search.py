@@ -19,6 +19,7 @@ def preprocess(title, body=None):
     text = re.sub("(\\d|\\W)+"," ", text).strip()
     return text
 
+
 def create_tfidf_features(corpus, max_features=5000, max_df=0.95, min_df=2):
     """ Creates a tf-idf matrix for the `corpus` using sklearn. """
     tfidf_vectorizor = TfidfVectorizer(decode_error='replace', strip_accents='unicode', analyzer='word', 
@@ -29,15 +30,18 @@ def create_tfidf_features(corpus, max_features=5000, max_df=0.95, min_df=2):
     print('tfidf matrix successfully created.')
     return X, tfidf_vectorizor
 
+
 def calculate_similarity(X, vectorizor, query, top_k=5):
     """ Vectorizes the `query` via `vectorizor` and calculates the cosine similarity of 
     the `query` and `X` (all the documents) and returns the `top_k` similar documents."""
 
     # Vectorize the query to the same length as documents
     query_vec = vectorizor.transform(query)
-    # Compute the cosine similarity between query_vec and all the documents
+    
+   # Compute the cosine similarity between query_vec and all the documents
     cosine_similarities = cosine_similarity(X,query_vec).flatten()
-    # Sort the similar documents from the most similar to less similar and return the indices
+    
+   # Sort the similar documents from the most similar to less similar and return the indices
     most_similar_doc_indices = np.argsort(cosine_similarities, axis=0)[:-top_k-1:-1]
     return (most_similar_doc_indices, cosine_similarities)
 
